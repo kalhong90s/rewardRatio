@@ -1,10 +1,11 @@
 
 function calculator() {
-  var wallet = document.getElementById('wallet').value.replace(/[\D\s\._\-]+/g, "");
-  var buyPrice = document.getElementById('buyPrice').value.replace(/[\D\s\._\-]+/g, "");
-  var sellPrice = document.getElementById('sellPrice').value.replace(/[\D\s\._\-]+/g, "");
-  var percentPrice = document.getElementById('percentPrice').value.replace(/[\D\s\._\-]+/g, "");
-  var unit = parseFloat(wallet) / parseFloat(buyPrice) ;
+  var wallet = document.getElementById('wallet').value.replaceAll(',','');
+  console.log(wallet)
+  var buyPrice = document.getElementById('buyPrice').value.replaceAll(',','');
+  var sellPrice = document.getElementById('sellPrice').value.replaceAll(',','');
+  var percentPrice = document.getElementById('percentPrice').value.replaceAll(',','');
+  var unit = (parseFloat(wallet)-(parseFloat(wallet)*0.25/100)) / parseFloat(buyPrice) ;
 
   var wallet1 = (unit * parseFloat(sellPrice)) - ((unit * parseFloat(sellPrice))*0.25/100) ;
   var profit1 = wallet1 - parseFloat(wallet);
@@ -38,63 +39,90 @@ function calculator() {
 }
 
 
+// Jquery Dependency
 
-(function($, undefined) {
+$("input[data-type='currency']").on({
+    keyup: function() {
+      formatCurrency($(this));
+    },
+    blur: function() { 
+      formatCurrency($(this), "blur");
+    }
+});
 
-	"use strict";
 
-	// When ready.
-	$(function() {
-		
-		var $form = $( "#form" );
-		var $input = $form.find( "input" );
 
-		$input.on( "keyup", function( event ) {
-			
-			
-			// When user select text in the document, also abort.
-			var selection = window.getSelection().toString();
-			if ( selection !== '' ) {
-				return;
-			}
-			
-			// When the arrow keys are pressed, abort.
-			if ( $.inArray( event.keyCode, [38,40,37,39] ) !== -1 ) {
-				return;
-			}
-			
-			
-			var $this = $( this );
-			
-			// Get the value.
-			var input = $this.val();
-			
-			var input = input.replace(/[\D\s\._\-]+/g, "");
-					input = input ? parseInt( input, 10 ) : 0;
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
 
-					$this.val( function() {
-						return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-					} );
-		} );
-		
-		/**
-		 * ==================================
-		 * When Form Submitted
-		 * ==================================
-		 */
-		$form.on( "submit", function( event ) {
-			
-			var $this = $( this );
-			var arr = $this.serializeArray();
-		
-			for (var i = 0; i < arr.length; i++) {
-					arr[i].value = arr[i].value.replace(/[($)\s\._\-]+/g, ''); // Sanitize the values.
-			};
-			
-			console.log( arr );
-			
-			event.preventDefault();
-		});
-		
-	});
-})(jQuery);
+
+function formatCurrency(input, blur) {
+  // appends $ to value, validates decimal side
+  // and puts cursor back in right position.
+  
+  // get input value
+  var input_val = input.val();
+  
+  // don't validate empty input
+  if (input_val === "") { return; }
+  
+  // original length
+  var original_len = input_val.length;
+
+  // initial caret position 
+  var caret_pos = input.prop("selectionStart");
+    
+  // check for decimal
+  if (input_val.indexOf(".") >= 0) {
+
+    // get position of first decimal
+    // this prevents multiple decimals from
+    // being entered
+    var decimal_pos = input_val.indexOf(".");
+
+    // split number by decimal point
+    var left_side = input_val.substring(0, decimal_pos);
+    var right_side = input_val.substring(decimal_pos);
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side);
+
+    // validate right side
+    right_side = formatNumber(right_side);
+    
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00";
+    }
+    
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2);
+
+    // join number by .
+    input_val = left_side + "." + right_side;
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val);
+    input_val = input_val;
+    
+    // final formatting
+    if (blur === "blur") {
+      input_val += ".00";
+    }
+  }
+  
+  // send updated string to input
+  input.val(input_val);
+
+  // put caret back in the right position
+  var updated_len = input_val.length;
+  caret_pos = updated_len - original_len + caret_pos;
+  input[0].setSelectionRange(caret_pos, caret_pos);
+}
+
+

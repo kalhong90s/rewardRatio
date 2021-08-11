@@ -20,13 +20,13 @@
       <h2>Reward Ratio</h2>
       <form id="form" action="" method="post" class="form">
         <div class="form__field">
-          <input type="text" id="wallet" placeholder="Wallet"   onkeyup="calculator()" >
+          <input type="text" id="wallet" placeholder="Wallet"   onkeyup="calculator()" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency">
         </div>
         <div class="form__field">
-          <input type="text" id="buyPrice" placeholder="Buy price" onkeyup="calculator()">
+          <input type="text" id="buyPrice" placeholder="Buy price" onkeyup="calculator()" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency">
         </div>
         <div class="form__field">
-          <input type="text" id="sellPrice" placeholder="Sell price" onkeyup="calculator()">
+          <input type="text" id="sellPrice" placeholder="Sell price" onkeyup="calculator()" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency">
         </div>
 
         <div class="form__field">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form__field">
-          <input type="text" id="percentPrice" placeholder="% price" onkeyup="calculator()" >
+          <input type="text" id="percentPrice" placeholder="% price" onkeyup="calculator()" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency">
         </div>
 
         <div class="form__field">
@@ -54,7 +54,7 @@
 
   </div>
 
-
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script><script  src="./script.js"></script>
 
 </body>
