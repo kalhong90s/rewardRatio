@@ -7,7 +7,6 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./style.css">
-  <script  src="./script.js"></script>
 
 
 </head>
@@ -19,15 +18,15 @@
     <div class="register">
       <img src="/img/logo.svg" >      
       <h2>Reward Ratio</h2>
-      <form action="" method="post" class="form">
+      <form id="form" action="" method="post" class="form">
         <div class="form__field">
-          <input type="number" id="wallet" placeholder="Wallet"   onkeyup="calculator()" >
+          <input type="text" id="wallet" placeholder="Wallet"   onkeyup="calculator()" >
         </div>
         <div class="form__field">
-          <input type="number" id="buyPrice" placeholder="Buy price" onkeyup="calculator()">
+          <input type="text" id="buyPrice" placeholder="Buy price" onkeyup="calculator()">
         </div>
         <div class="form__field">
-          <input type="number" id="sellPrice" placeholder="Sell price" onkeyup="calculator()">
+          <input type="text" id="sellPrice" placeholder="Sell price" onkeyup="calculator()">
         </div>
 
         <div class="form__field">
@@ -39,7 +38,7 @@
         </div>
 
         <div class="form__field">
-          <input type="number" id="percentPrice" placeholder="% price" onkeyup="calculator()" >
+          <input type="text" id="percentPrice" placeholder="% price" onkeyup="calculator()" >
         </div>
 
         <div class="form__field">
@@ -56,6 +55,7 @@
   </div>
 
 
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script><script  src="./script.js"></script>
 
 </body>
 </html>
