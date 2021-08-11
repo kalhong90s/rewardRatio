@@ -93,9 +93,9 @@ function formatCurrency(input, blur) {
     right_side = formatNumber(right_side);
     
     // On blur make sure 2 numbers after decimal
-    if (blur === "blur") {
-      right_side += "00";
-    }
+    // if (blur === "blur") {
+    //   right_side += "00";
+    // }
     
     // Limit decimal to only 2 digits
     right_side = right_side.substring(0, 2);
@@ -111,9 +111,9 @@ function formatCurrency(input, blur) {
     input_val = input_val;
     
     // final formatting
-    if (blur === "blur") {
-      input_val += ".00";
-    }
+    // if (blur === "blur") {
+    //   input_val += ".00";
+    // }
   }
   
   // send updated string to input
