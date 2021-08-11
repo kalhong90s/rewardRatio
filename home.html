@@ -32,8 +32,8 @@
         
 
         if (!isNaN(wallet1)) {
-            document.getElementById('percent').value = `${new Intl.NumberFormat('en-IN').format(percent)} %`;
-            document.getElementById('profit1').value = `${new Intl.NumberFormat('en-IN').format(wallet1)} : ${new Intl.NumberFormat('en-IN').format(profit1)} `;
+            document.getElementById('percent').value = `${new Intl.NumberFormat('en-US',{ maximumSignificantDigits: 3 }).format(percent)} %`;
+            document.getElementById('profit1').value = `${new Intl.NumberFormat('en-US',{ maximumSignificantDigits: 3 }).format(wallet1)} : ${new Intl.NumberFormat('en-US',{ maximumSignificantDigits: 3 }).format(profit1)} `;
         }else{
             document.getElementById('percent').value = `%`;
             document.getElementById('profit1').value = `Profit`;
@@ -41,8 +41,8 @@
         }
         
         if (!isNaN(wallet2)) {
-            document.getElementById('price').value = `${new Intl.NumberFormat('en-IN').format(price)}`;
-            document.getElementById('profit2').value = `${new Intl.NumberFormat('en-IN').format(wallet2)} : ${new Intl.NumberFormat('en-IN').format(profit2)} `;
+            document.getElementById('price').value = `${new Intl.NumberFormat('en-US').format(price)}`;
+            document.getElementById('profit2').value = `${new Intl.NumberFormat('en-US',{ maximumSignificantDigits: 3 }).format(wallet2)} : ${new Intl.NumberFormat('en-US',{ maximumSignificantDigits: 3 }).format(profit2)} `;
         }else{
             document.getElementById('price').value = `Sell price`;
             document.getElementById('profit2').value = `Profit`;
